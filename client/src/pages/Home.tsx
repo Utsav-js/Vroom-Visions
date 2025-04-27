@@ -66,8 +66,10 @@ const Home: React.FC = () => {
           </video>
         </div>
         
-        {/* Stars overlay */}
-        <div className="absolute inset-0 z-[2] stars opacity-80"></div>
+        {/* Stars overlays - three layers for parallax effect */}
+        <div className="absolute inset-0 z-[2] stars stars-large opacity-70"></div>
+        <div className="absolute inset-0 z-[2] stars opacity-60"></div>
+        <div className="absolute inset-0 z-[2] stars stars-small opacity-60"></div>
       </div>
       
       {/* Hero Section */}
