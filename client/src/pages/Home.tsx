@@ -29,7 +29,7 @@ const Home: React.FC = () => {
   });
 
   // Use local data if API fails or is loading
-  const displayProducts = apiProducts || products;
+  const displayProducts = Array.isArray(apiProducts) ? apiProducts : products;
 
   const handlePrevTestimonial = () => {
     setCurrentTestimonial(prev => 
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
             loop 
             playsInline
           >
-            <source src="/public/videos/blackhole.webm" type="video/webm" />
+            <source src="/blackhole.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
         </div>

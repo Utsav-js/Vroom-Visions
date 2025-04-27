@@ -23,7 +23,8 @@ const ProductDetail: React.FC = () => {
   });
   
   // Fallback to local data if API fails
-  const product = apiProduct || products.find(p => p.slug === params?.slug);
+  const localProduct = products.find(p => p.slug === params?.slug);
+  const product = apiProduct && Object.keys(apiProduct).length > 0 ? apiProduct : localProduct;
   
   if (!product) {
     return (

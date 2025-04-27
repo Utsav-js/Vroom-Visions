@@ -18,16 +18,16 @@ const Footer: React.FC = () => {
               Professional car editing and color grading solutions that transform ordinary photos into extraordinary visuals.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="https://www.instagram.com/vroom_visionsx" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors">
                 <Instagram size={18} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
                 <Facebook size={18} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="#" className="text-gray-400 hover:text-sky-400 transition-colors">
                 <Twitter size={18} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">
                 <Youtube size={18} />
               </a>
             </div>
