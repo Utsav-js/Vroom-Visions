@@ -67,6 +67,8 @@
   width: 100%;
   overflow: hidden;
   border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
 }
 
 .comparison-slider .before,
@@ -89,8 +91,9 @@
   top: 0;
   left: var(--position);
   height: 100%;
-  width: 2px;
-  background: white;
+  width: 3px;
+  background: rgba(138, 43, 226, 0.7);
+  box-shadow: 0 0 8px rgba(138, 43, 226, 0.8);
   z-index: 3;
   cursor: ew-resize;
   transform: translateX(-50%);
@@ -104,22 +107,25 @@
   transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
-  background: white;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(138, 43, 226, 0.3));
+  border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
 }
 
 .comparison-slider .handle::after {
   content: '↔';
-  color: #121212;
+  color: white;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 16px;
   font-weight: bold;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 /* Pulsating glow animation */

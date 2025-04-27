@@ -75,25 +75,38 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   }, [isDragging]);
 
   return (
-    <div 
-      ref={sliderRef}
-      className={`comparison-slider ${getAspectRatioClass()} rounded-lg ${className}`}
-      style={{ "--position": `${position}%` } as React.CSSProperties}
-    >
+    <div className="relative max-w-3xl mx-auto">
+      {/* Before and After Labels */}
+      <div className="flex justify-between mb-2">
+        <div className="px-3 py-1 bg-purple-900/50 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/10">
+          Before
+        </div>
+        <div className="px-3 py-1 bg-purple-900/50 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/10">
+          After
+        </div>
+      </div>
+      
+      {/* Slider Container */}
       <div 
-        className="after w-full h-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${afterImage})` }}
-      />
-      <div 
-        className="before w-full h-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${beforeImage})` }}
-      />
-      <div 
-        className="handle" 
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-      />
+        ref={sliderRef}
+        className={`comparison-slider ${getAspectRatioClass()} rounded-lg shadow-glow ${className}`}
+        style={{ "--position": `${position}%` } as React.CSSProperties}
+      >
+        <div 
+          className="after w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${afterImage})` }}
+        />
+        <div 
+          className="before w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${beforeImage})` }}
+        />
+        <div 
+          className="handle" 
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+        />
+      </div>
     </div>
   );
 };

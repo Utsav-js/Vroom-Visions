@@ -88,10 +88,11 @@ const Home: React.FC = () => {
           </div>
           
           {/* Image Comparison Slider */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <BeforeAfterSlider
               beforeImage={beforeImage}
               afterImage={afterImage}
+              aspectRatio="video"
             />
             <p className="text-center mt-3 text-gray-400">
               Drag the slider to see the dramatic difference our premium LUTs make.
