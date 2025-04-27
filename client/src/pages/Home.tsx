@@ -50,10 +50,18 @@ const Home: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-10 bg-brand-gray">
-        <div className="container mx-auto px-4">
+      <section className="relative pt-24 pb-20 overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-brand-dark to-brand-dark z-0"></div>
+        
+        {/* Animated glow effect */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] z-0 hero-glow"></div>
+        
+        <div className="container relative mx-auto px-4 z-10">
           <div className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Transform Your Car Photography</h1>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-300">
+              Transform Your Car Photography
+            </h1>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               Professional color grading that turns ordinary car photos into showroom-quality imagery with just one click.
             </p>

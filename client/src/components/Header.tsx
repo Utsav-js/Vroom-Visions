@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import Logo from "./Logo";
 import { ShoppingCart, Instagram, Facebook, Twitter } from "lucide-react";
@@ -9,8 +9,23 @@ import { Button } from "@/components/ui/button";
 const Header: React.FC = () => {
   const [, navigate] = useLocation();
   const { cart } = useCart();
+  const [scrolled, setScrolled] = useState(false);
   
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+  // Change background on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { label: "Features", path: "/#features" },
@@ -19,23 +34,27 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="bg-brand-dark sticky top-0 z-50">
+    <header className={`sticky top-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-brand-dark/90 backdrop-blur-md' : 'bg-transparent'
+    }`}>
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div onClick={() => navigate("/")} className="cursor-pointer">
           <Logo />
         </div>
         
         <div className="hidden md:flex space-x-1">
-          {navItems.map((item) => (
-            <Button
-              key={item.label}
-              variant="ghost"
-              className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-full text-sm"
-              onClick={() => navigate(item.path)}
-            >
-              {item.label}
-            </Button>
-          ))}
+          <div className="bg-black/20 backdrop-blur-md px-4 py-1 rounded-full flex space-x-1">
+            {navItems.map((item) => (
+              <Button
+                key={item.label}
+                variant="ghost"
+                className="text-white hover:bg-white/10 px-3 py-1 rounded-full text-sm"
+                onClick={() => navigate(item.path)}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </div>
         </div>
         
         <div className="flex items-center space-x-3">
@@ -63,17 +82,19 @@ const Header: React.FC = () => {
       </div>
       
       <div className="md:hidden">
-        <div className="container mx-auto px-4 py-2 flex justify-center space-x-1">
-          {navItems.map((item) => (
-            <Button
-              key={item.label}
-              variant="ghost"
-              className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-1 rounded-full text-sm"
-              onClick={() => navigate(item.path)}
-            >
-              {item.label}
-            </Button>
-          ))}
+        <div className="container mx-auto px-4 py-2 flex justify-center">
+          <div className="bg-black/20 backdrop-blur-md px-3 py-1 rounded-full flex space-x-1">
+            {navItems.map((item) => (
+              <Button
+                key={item.label}
+                variant="ghost"
+                className="text-white hover:bg-white/10 px-2 py-1 rounded-full text-sm"
+                onClick={() => navigate(item.path)}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
     </header>
