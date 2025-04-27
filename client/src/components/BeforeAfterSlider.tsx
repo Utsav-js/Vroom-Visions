@@ -6,8 +6,6 @@ interface BeforeAfterSliderProps {
   afterImage: string;
   aspectRatio?: "square" | "video" | "auto";
   className?: string;
-  beforeSize?: string;
-  afterSize?: string;
 }
 
 const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
@@ -15,8 +13,6 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   afterImage,
   aspectRatio = "auto",
   className = "",
-  beforeSize = "700KB",
-  afterSize = "250KB",
 }) => {
   const [position, setPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -81,64 +77,62 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
   return (
     <div className="relative max-w-3xl mx-auto">
-      {/* Slider Container with outer border */}
-      <div className="relative overflow-hidden rounded-lg shadow-glow">
-        <div 
-          ref={sliderRef}
-          className={`comparison-slider ${getAspectRatioClass()} ${className}`}
-          style={{ "--position": `${position}%` } as React.CSSProperties}
-        >
-          {/* After image with label */}
+      <div className="rounded-lg overflow-hidden shadow-xl">
+        <div className="relative">
+          {/* The slider container */}
           <div 
-            className="after w-full h-full bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${afterImage})` }}
+            ref={sliderRef}
+            className={`side-by-side-slider ${getAspectRatioClass()} ${className}`}
+            style={{ 
+              "--position": `${position}%` 
+            } as React.CSSProperties}
           >
-            {/* After Label - top right */}
-            <div className="absolute top-4 right-4 px-3 py-1 bg-red-500 text-white font-bold text-sm z-10">
-              After
+            {/* Left side (Before) */}
+            <div className="before-side">
+              {/* Before Label */}
+              <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-gray-700/90 text-white text-sm font-medium rounded">
+                Before
+              </div>
+              <img 
+                src={beforeImage} 
+                alt="Before" 
+                className="w-full h-full object-cover"
+              />
             </div>
-          </div>
-          
-          {/* Before image with label */}
-          <div 
-            className="before w-full h-full bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${beforeImage})` }}
-          >
-            {/* Before Label - top left */}
-            <div className="absolute top-4 left-4 px-3 py-1 bg-gray-700/80 text-white font-bold text-sm z-10">
-              Before
+            
+            {/* Right side (After) */}
+            <div className="after-side">
+              {/* After Label */}
+              <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-red-500 text-white text-sm font-medium rounded">
+                After
+              </div>
+              <img 
+                src={afterImage} 
+                alt="After" 
+                className="w-full h-full object-cover"
+              />
             </div>
-          </div>
-          
-          {/* Center handle with arrow icon */}
-          <div 
-            className="handle" 
-            onMouseDown={handleMouseDown}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-          >
-            <span className="arrow-icon"></span>
+            
+            {/* The divider handle */}
+            <div className="divider">
+              <div className="handle-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 7L14 12L10 17" stroke="#666" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M14 7L10 12L14 17" stroke="#666" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="divider-line"></div>
+            </div>
+            
+            {/* Draggable overlay */}
+            <div 
+              className="slider-overlay"
+              onMouseDown={handleMouseDown}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+            ></div>
           </div>
         </div>
-        
-        {/* File size information bar */}
-        <div className="flex justify-between items-center bg-gray-800 text-white text-sm">
-          <div className="py-2 px-3 font-medium">
-            SIZE BEFORE: {beforeSize}
-          </div>
-          <div className="flex items-center">
-            <ChevronRight className="w-4 h-4" />
-          </div>
-          <div className="py-2 px-3 bg-red-500 font-medium">
-            AFTER: {afterSize}
-          </div>
-        </div>
-      </div>
-      
-      {/* See any difference text */}
-      <div className="text-center mt-2 text-gray-400 flex items-center justify-end">
-        <span className="text-red-400">•</span>
-        <span className="ml-1">See any difference?</span>
       </div>
     </div>
   );

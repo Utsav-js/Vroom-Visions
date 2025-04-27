@@ -93,8 +93,6 @@ const Home: React.FC = () => {
               beforeImage={beforeImage}
               afterImage={afterImage}
               aspectRatio="video"
-              beforeSize="700KB"
-              afterSize="250KB"
             />
             <p className="text-center mt-3 text-gray-400">
               Drag the slider to see the dramatic difference our premium LUTs make.
