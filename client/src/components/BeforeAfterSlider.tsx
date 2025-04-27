@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BeforeAfterSliderProps {
   beforeImage: string;
   afterImage: string;
   aspectRatio?: "square" | "video" | "auto";
   className?: string;
+  beforeSize?: string;
+  afterSize?: string;
 }
 
 const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
@@ -12,6 +15,8 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   afterImage,
   aspectRatio = "auto",
   className = "",
+  beforeSize = "700KB",
+  afterSize = "250KB",
 }) => {
   const [position, setPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -76,40 +81,64 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
   return (
     <div className="relative max-w-3xl mx-auto">
-      {/* Slider Container */}
-      <div 
-        ref={sliderRef}
-        className={`comparison-slider ${getAspectRatioClass()} rounded-lg shadow-glow ${className}`}
-        style={{ "--position": `${position}%` } as React.CSSProperties}
-      >
-        {/* After image with label */}
+      {/* Slider Container with outer border */}
+      <div className="relative overflow-hidden rounded-lg shadow-glow">
         <div 
-          className="after w-full h-full bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${afterImage})` }}
+          ref={sliderRef}
+          className={`comparison-slider ${getAspectRatioClass()} ${className}`}
+          style={{ "--position": `${position}%` } as React.CSSProperties}
         >
-          {/* After Label - positioned at top right */}
-          <div className="absolute top-3 right-3 px-3 py-1 bg-purple-900/70 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/20 z-10">
-            After
+          {/* After image with label */}
+          <div 
+            className="after w-full h-full bg-cover bg-center relative"
+            style={{ backgroundImage: `url(${afterImage})` }}
+          >
+            {/* After Label - top right */}
+            <div className="absolute top-4 right-4 px-3 py-1 bg-red-500 text-white font-bold text-sm z-10">
+              After
+            </div>
+          </div>
+          
+          {/* Before image with label */}
+          <div 
+            className="before w-full h-full bg-cover bg-center relative"
+            style={{ backgroundImage: `url(${beforeImage})` }}
+          >
+            {/* Before Label - top left */}
+            <div className="absolute top-4 left-4 px-3 py-1 bg-gray-700/80 text-white font-bold text-sm z-10">
+              Before
+            </div>
+          </div>
+          
+          {/* Center handle with arrow icon */}
+          <div 
+            className="handle" 
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+          >
+            <span className="arrow-icon"></span>
           </div>
         </div>
         
-        {/* Before image with label */}
-        <div 
-          className="before w-full h-full bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${beforeImage})` }}
-        >
-          {/* Before Label - positioned at bottom left */}
-          <div className="absolute bottom-3 left-3 px-3 py-1 bg-purple-900/70 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/20 z-10">
-            Before
+        {/* File size information bar */}
+        <div className="flex justify-between items-center bg-gray-800 text-white text-sm">
+          <div className="py-2 px-3 font-medium">
+            SIZE BEFORE: {beforeSize}
+          </div>
+          <div className="flex items-center">
+            <ChevronRight className="w-4 h-4" />
+          </div>
+          <div className="py-2 px-3 bg-red-500 font-medium">
+            AFTER: {afterSize}
           </div>
         </div>
-        
-        <div 
-          className="handle" 
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-        />
+      </div>
+      
+      {/* See any difference text */}
+      <div className="text-center mt-2 text-gray-400 flex items-center justify-end">
+        <span className="text-red-400">•</span>
+        <span className="ml-1">See any difference?</span>
       </div>
     </div>
   );

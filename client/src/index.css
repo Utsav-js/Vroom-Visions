@@ -66,9 +66,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .comparison-slider .before,
@@ -97,9 +95,8 @@
   top: 0;
   left: var(--position);
   height: 100%;
-  width: 3px;
-  background: rgba(138, 43, 226, 0.7);
-  box-shadow: 0 0 8px rgba(138, 43, 226, 0.8);
+  width: 1px;
+  background: rgba(255, 255, 255, 0.7);
   z-index: 3;
   cursor: ew-resize;
   transform: translateX(-50%);
@@ -111,27 +108,39 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(138, 43, 226, 0.3));
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  width: 32px;
+  height: 32px;
+  background: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
 .comparison-slider .handle::after {
-  content: '↔';
-  color: white;
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 16px;
-  font-weight: bold;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid #444;
+  border-bottom: 2px solid #444;
+  transform: translate(-30%, -50%) rotate(45deg);
+}
+
+.comparison-slider .handle .arrow-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #444;
+  border-top: 2px solid #444;
+  transform: translate(-70%, -50%) rotate(45deg);
 }
 
 /* Pulsating glow animation */
