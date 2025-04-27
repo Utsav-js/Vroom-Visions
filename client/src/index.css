@@ -86,6 +86,12 @@
   clip-path: polygon(0 0, var(--position) 0, var(--position) 100%, 0 100%);
 }
 
+/* Ensure labels appear on top of images */
+.comparison-slider .before > div,
+.comparison-slider .after > div {
+  z-index: 10;
+}
+
 .comparison-slider .handle {
   position: absolute;
   top: 0;

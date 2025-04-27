@@ -76,30 +76,34 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
   return (
     <div className="relative max-w-3xl mx-auto">
-      {/* Before and After Labels */}
-      <div className="flex justify-between mb-2">
-        <div className="px-3 py-1 bg-purple-900/50 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/10">
-          Before
-        </div>
-        <div className="px-3 py-1 bg-purple-900/50 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/10">
-          After
-        </div>
-      </div>
-      
       {/* Slider Container */}
       <div 
         ref={sliderRef}
         className={`comparison-slider ${getAspectRatioClass()} rounded-lg shadow-glow ${className}`}
         style={{ "--position": `${position}%` } as React.CSSProperties}
       >
+        {/* After image with label */}
         <div 
-          className="after w-full h-full bg-cover bg-center"
+          className="after w-full h-full bg-cover bg-center relative"
           style={{ backgroundImage: `url(${afterImage})` }}
-        />
+        >
+          {/* After Label - positioned at top right */}
+          <div className="absolute top-3 right-3 px-3 py-1 bg-purple-900/70 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/20 z-10">
+            After
+          </div>
+        </div>
+        
+        {/* Before image with label */}
         <div 
-          className="before w-full h-full bg-cover bg-center"
+          className="before w-full h-full bg-cover bg-center relative"
           style={{ backgroundImage: `url(${beforeImage})` }}
-        />
+        >
+          {/* Before Label - positioned at bottom left */}
+          <div className="absolute bottom-3 left-3 px-3 py-1 bg-purple-900/70 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/20 z-10">
+            Before
+          </div>
+        </div>
+        
         <div 
           className="handle" 
           onMouseDown={handleMouseDown}
