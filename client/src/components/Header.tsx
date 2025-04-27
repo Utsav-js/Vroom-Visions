@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import Logo from "./Logo";
-import { ShoppingCart, Instagram, Facebook, Twitter } from "lucide-react";
+import { ShoppingCart, Instagram, Facebook } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -69,8 +69,11 @@ const Header: React.FC = () => {
           <button className="text-gray-400 hover:text-white bg-transparent border-0 p-0 transition-colors">
             <Facebook size={16} />
           </button>
-          <button className="text-gray-400 hover:text-white bg-transparent border-0 p-0 transition-colors">
-            <Twitter size={16} />
+          <button className="text-gray-400 hover:text-white bg-transparent border-0 p-0 transition-colors flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3C7.0275 3 3 7.0275 3 12C3 16.9725 7.0275 21 12 21C16.9725 21 21 16.9725 21 12C21 7.0275 16.9725 3 12 3ZM18 13.2C18 15.0 16.5 16.5 14.7 16.5H11.4C9.6 16.5 8.1 15.0 8.1 13.2V10.8C8.1 9 9.6 7.5 11.4 7.5H14.7C16.5 7.5 18 9 18 10.8V13.2Z" 
+                fill="currentColor"/>
+            </svg>
           </button>
           <div 
             onClick={() => navigate("/checkout")} 
