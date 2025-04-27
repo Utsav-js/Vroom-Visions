@@ -49,13 +49,13 @@ const Home: React.FC = () => {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden">
+      {/* Main background wrapper - fixed position to cover entire viewport */}
+      <div className="fixed inset-0 z-[-1]">
         {/* Video background */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-black/60 z-[1]"></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-black/40 z-[1]"></div>
           <video 
-            className="absolute top-0 left-0 min-w-full min-h-full object-cover opacity-60"
+            className="absolute top-0 left-0 min-w-full min-h-full object-cover opacity-80"
             autoPlay 
             muted 
             loop 
@@ -67,11 +67,11 @@ const Home: React.FC = () => {
         </div>
         
         {/* Stars overlay */}
-        <div className="absolute inset-0 z-[2] stars opacity-70"></div>
-        
-        {/* Background gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-brand-dark/70 to-brand-dark z-[3]"></div>
-        
+        <div className="absolute inset-0 z-[2] stars opacity-80"></div>
+      </div>
+      
+      {/* Hero Section */}
+      <section className="relative pt-24 pb-20 overflow-hidden">
         {/* Animated glow effect */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[100px] z-[4] hero-glow"></div>
         

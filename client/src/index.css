@@ -44,11 +44,11 @@
 }
 
 .bg-brand-dark {
-  @apply bg-zinc-900;
+  @apply bg-zinc-900/50 backdrop-blur-lg;
 }
 
 .bg-brand-gray {
-  @apply bg-zinc-800;
+  @apply bg-zinc-800/60 backdrop-blur-lg;
 }
 
 .bg-brand-light {

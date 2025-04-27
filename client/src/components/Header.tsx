@@ -35,7 +35,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-brand-dark/90 backdrop-blur-md' : 'bg-transparent'
+      scrolled ? 'bg-purple-900/20 backdrop-blur-md border-b border-white/10' : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div onClick={() => navigate("/")} className="cursor-pointer">
@@ -43,12 +43,12 @@ const Header: React.FC = () => {
         </div>
         
         <div className="hidden md:flex space-x-1">
-          <div className="bg-black/20 backdrop-blur-md px-4 py-1 rounded-full flex space-x-1">
+          <div className="bg-purple-900/20 backdrop-blur-lg px-4 py-1 rounded-full flex space-x-1 border border-white/10 shadow-glow">
             {navItems.map((item) => (
               <Button
                 key={item.label}
                 variant="ghost"
-                className="text-white hover:bg-white/10 px-3 py-1 rounded-full text-sm"
+                className="text-white hover:bg-purple-500/20 px-3 py-1 rounded-full text-sm transition-all duration-300"
                 onClick={() => navigate(item.path)}
               >
                 {item.label}
@@ -83,12 +83,12 @@ const Header: React.FC = () => {
       
       <div className="md:hidden">
         <div className="container mx-auto px-4 py-2 flex justify-center">
-          <div className="bg-black/20 backdrop-blur-md px-3 py-1 rounded-full flex space-x-1">
+          <div className="bg-purple-900/20 backdrop-blur-lg px-3 py-1 rounded-full flex space-x-1 border border-white/10 shadow-glow">
             {navItems.map((item) => (
               <Button
                 key={item.label}
                 variant="ghost"
-                className="text-white hover:bg-white/10 px-2 py-1 rounded-full text-sm"
+                className="text-white hover:bg-purple-500/20 px-2 py-1 rounded-full text-sm transition-all duration-300"
                 onClick={() => navigate(item.path)}
               >
                 {item.label}
