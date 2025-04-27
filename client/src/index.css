@@ -91,8 +91,9 @@
   top: 0;
   left: var(--position);
   height: 100%;
-  width: 0px; /* Remove the line by setting width to 0 */
-  background: transparent;
+  width: 3px;
+  background: rgba(138, 43, 226, 0.7);
+  box-shadow: 0 0 8px rgba(138, 43, 226, 0.8);
   z-index: 3;
   cursor: ew-resize;
   transform: translateX(-50%);

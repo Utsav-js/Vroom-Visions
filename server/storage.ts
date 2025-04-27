@@ -71,7 +71,7 @@ export class MemStorage implements IStorage {
         ],
         category: "luts",
         compatibility: ["AE", "PR", "FCPX"],
-        imageUrl: "/images/LUTS.jpg"
+        imageUrl: "https://i.imgur.com/xyz123.jpg" // Placeholder URL
       },
       {
         name: "Color Grading LUTs Volume 2",
@@ -88,7 +88,7 @@ export class MemStorage implements IStorage {
         ],
         category: "luts",
         compatibility: ["AE", "PR", "FCPX"],
-        imageUrl: "/images/LUT.jpg"
+        imageUrl: "https://i.imgur.com/abc456.jpg" // Placeholder URL
       },
       {
         name: "Sci-Fi LUTs",
@@ -105,7 +105,7 @@ export class MemStorage implements IStorage {
         ],
         category: "luts",
         compatibility: ["AE", "PR", "FCPX"],
-        imageUrl: "/images/LUTS.jpg"
+        imageUrl: "https://i.imgur.com/def789.jpg" // Placeholder URL
       },
       {
         name: "Vintage Car LUTs",
@@ -122,7 +122,7 @@ export class MemStorage implements IStorage {
         ],
         category: "luts",
         compatibility: ["AE", "PR", "FCPX"],
-        imageUrl: "/images/LUT.jpg"
+        imageUrl: "https://i.imgur.com/ghi012.jpg" // Placeholder URL
       }
     ];
     
