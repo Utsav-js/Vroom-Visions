@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BeforeAfterSliderProps {
   beforeImage: string;
@@ -77,62 +76,36 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
   return (
     <div className="relative max-w-3xl mx-auto">
-      <div className="rounded-lg overflow-hidden shadow-xl">
-        <div className="relative">
-          {/* The slider container */}
-          <div 
-            ref={sliderRef}
-            className={`side-by-side-slider ${getAspectRatioClass()} ${className}`}
-            style={{ 
-              "--position": `${position}%` 
-            } as React.CSSProperties}
-          >
-            {/* Left side (Before) */}
-            <div className="before-side">
-              {/* Before Label */}
-              <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-gray-700/90 text-white text-sm font-medium rounded">
-                Before
-              </div>
-              <img 
-                src={beforeImage} 
-                alt="Before" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            {/* Right side (After) */}
-            <div className="after-side">
-              {/* After Label */}
-              <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-red-500 text-white text-sm font-medium rounded">
-                After
-              </div>
-              <img 
-                src={afterImage} 
-                alt="After" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            {/* The divider handle */}
-            <div className="divider">
-              <div className="handle-circle">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 7L14 12L10 17" stroke="#666" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M14 7L10 12L14 17" stroke="#666" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="divider-line"></div>
-            </div>
-            
-            {/* Draggable overlay */}
-            <div 
-              className="slider-overlay"
-              onMouseDown={handleMouseDown}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-            ></div>
-          </div>
+      {/* Before and After Labels */}
+      <div className="flex justify-between mb-2">
+        <div className="px-3 py-1 bg-purple-900/50 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/10">
+          Before
         </div>
+        <div className="px-3 py-1 bg-purple-900/50 backdrop-blur-md text-white font-bold rounded-full text-sm shadow-glow border border-white/10">
+          After
+        </div>
+      </div>
+      
+      {/* Slider Container */}
+      <div 
+        ref={sliderRef}
+        className={`comparison-slider ${getAspectRatioClass()} rounded-lg shadow-glow ${className}`}
+        style={{ "--position": `${position}%` } as React.CSSProperties}
+      >
+        <div 
+          className="after w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${afterImage})` }}
+        />
+        <div 
+          className="before w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${beforeImage})` }}
+        />
+        <div 
+          className="handle" 
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+        />
       </div>
     </div>
   );
