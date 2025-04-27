@@ -20,8 +20,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Link href={`/products/${product.slug}`}>
-      <a className="block bg-brand-dark rounded-lg overflow-hidden group transition-transform hover:scale-[1.02]">
+    <Link to={`/products/${product.slug}`}>
+      <div className="block bg-purple-900/20 backdrop-blur-lg border border-white/10 rounded-lg overflow-hidden shadow-glow group transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:bg-purple-900/30">
         <div className="relative h-48">
           <img 
             src={product.imageUrl} 
@@ -29,14 +29,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="w-full h-full object-cover"
           />
           {product.discount && (
-            <div className="discount-badge">-{product.discount}%</div>
+            <div className="absolute top-2 left-2 bg-purple-600/90 text-white font-semibold text-xs py-1 px-2 rounded-full">-{product.discount}%</div>
           )}
         </div>
         <div className="p-4">
           <h3 className="text-lg font-bold mb-1">{product.name}</h3>
-          <div className="flex space-x-2 mb-3">
+          <div className="flex flex-wrap gap-2 mb-3">
             {product.compatibility?.map((comp) => (
-              <Badge key={comp} variant="outline" className="bg-zinc-700 text-xs px-2 py-0.5 rounded">
+              <Badge key={comp} variant="outline" className="bg-purple-900/40 border border-purple-500/30 text-xs px-2 py-0.5 rounded-full">
                 {comp}
               </Badge>
             ))}
@@ -52,14 +52,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
             <Button 
               variant="outline" 
-              className="bg-zinc-700 hover:bg-zinc-600 p-2 rounded"
+              className="bg-purple-600/20 hover:bg-purple-600/40 p-2 rounded-full border border-white/20 transition-all duration-300"
               onClick={handleAddToCart}
             >
               <ShoppingCart size={16} />
             </Button>
           </div>
         </div>
-      </a>
+      </div>
     </Link>
   );
 };

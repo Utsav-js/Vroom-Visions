@@ -142,6 +142,11 @@
   animation: pulse-glow 8s ease-in-out infinite;
 }
 
+/* Shadow glow effect for UI elements */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+}
+
 /* Starry background */
 .stars {
   position: absolute;
