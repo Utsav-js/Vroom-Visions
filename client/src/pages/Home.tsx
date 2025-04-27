@@ -53,34 +53,27 @@ const Home: React.FC = () => {
       <section className="relative pt-24 pb-20 overflow-hidden">
         {/* Video background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-black/80 z-[1]"></div>
+          <div className="absolute inset-0 bg-black/60 z-[1]"></div>
           <video 
-            className="absolute top-0 left-0 min-w-full min-h-full object-cover opacity-30"
+            className="absolute top-0 left-0 min-w-full min-h-full object-cover opacity-60"
             autoPlay 
             muted 
             loop 
             playsInline
           >
-            <source src="/videos/blackhole.webm" type="video/webm" />
+            <source src="/public/videos/blackhole.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
-          
-          {/* Black hole effect (positioned in center of hero section) */}
-          <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[4] black-hole-container" style={{ perspective: "1000px" }}>
-            <div className="black-hole"></div>
-            <div className="accretion-disk"></div>
-            <div className="light-flare"></div>
-          </div>
         </div>
         
         {/* Stars overlay */}
         <div className="absolute inset-0 z-[2] stars opacity-70"></div>
         
         {/* Background gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-brand-dark/70 to-brand-dark z-[3]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-brand-dark/70 to-brand-dark z-[3]"></div>
         
         {/* Animated glow effect */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] z-[4] hero-glow"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[100px] z-[4] hero-glow"></div>
         
         <div className="container relative mx-auto px-4 z-[5]">
           <div className="text-center mb-10">
