@@ -21,11 +21,9 @@ const Header: React.FC = () => {
   return (
     <header className="bg-brand-dark sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <Link href="/">
-          <a className="cursor-pointer">
-            <Logo />
-          </a>
-        </Link>
+        <div onClick={() => navigate("/")} className="cursor-pointer">
+          <Logo />
+        </div>
         
         <div className="hidden md:flex space-x-1">
           {navItems.map((item) => (
@@ -41,25 +39,26 @@ const Header: React.FC = () => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <a href="#" className="text-white hover:text-brand-purple">
+          <button className="text-white hover:text-brand-purple bg-transparent border-0 p-0">
             <Instagram size={18} />
-          </a>
-          <a href="#" className="text-white hover:text-brand-purple">
+          </button>
+          <button className="text-white hover:text-brand-purple bg-transparent border-0 p-0">
             <Facebook size={18} />
-          </a>
-          <a href="#" className="text-white hover:text-brand-purple">
+          </button>
+          <button className="text-white hover:text-brand-purple bg-transparent border-0 p-0">
             <Twitter size={18} />
-          </a>
-          <Link href="/checkout">
-            <a className="text-white hover:text-brand-purple relative">
-              <ShoppingCart size={18} />
-              {itemCount > 0 && (
-                <Badge variant="destructive" className="absolute -top-2 -right-2 bg-purple-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs p-0">
-                  {itemCount}
-                </Badge>
-              )}
-            </a>
-          </Link>
+          </button>
+          <div 
+            onClick={() => navigate("/checkout")} 
+            className="text-white hover:text-brand-purple relative cursor-pointer"
+          >
+            <ShoppingCart size={18} />
+            {itemCount > 0 && (
+              <Badge variant="destructive" className="absolute -top-2 -right-2 bg-purple-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs p-0">
+                {itemCount}
+              </Badge>
+            )}
+          </div>
         </div>
       </div>
       
