@@ -51,13 +51,31 @@ const Home: React.FC = () => {
     <>
       {/* Hero Section */}
       <section className="relative pt-24 pb-20 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-brand-dark to-brand-dark z-0"></div>
+        {/* Video background */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute inset-0 bg-black/60 z-[1]"></div>
+          <video 
+            className="absolute top-0 left-0 min-w-full min-h-full object-cover opacity-60"
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+          >
+            <source src="https://static.videezy.com/system/resources/previews/000/044/665/original/200304_02_BlackHolePortal4k_24b.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        
+        {/* Stars overlay */}
+        <div className="absolute inset-0 z-[2] stars opacity-70"></div>
+        
+        {/* Background gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-brand-dark/70 to-brand-dark z-[3]"></div>
         
         {/* Animated glow effect */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] z-0 hero-glow"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[100px] z-[4] hero-glow"></div>
         
-        <div className="container relative mx-auto px-4 z-10">
+        <div className="container relative mx-auto px-4 z-[5]">
           <div className="text-center mb-10">
             <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-300">
               Transform Your Car Photography
