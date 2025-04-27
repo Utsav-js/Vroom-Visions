@@ -55,8 +55,22 @@ const Checkout: React.FC = () => {
   const formattedTotal = (totalPrice / 100).toFixed(2);
 
   return (
-    <section className="py-16 bg-brand-gray">
-      <div className="container mx-auto px-4">
+    <section className="py-16 relative overflow-hidden">
+      {/* Black hole video background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+        <video 
+          className="absolute w-full h-full object-cover opacity-20" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source src="/blackhole.webm" type="video/webm" />
+        </video>
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="mb-6">
           <Link href="/">
             <a className="text-gray-400 hover:text-white flex items-center">
@@ -68,11 +82,11 @@ const Checkout: React.FC = () => {
         <h1 className="text-2xl md:text-3xl font-bold mb-8">Checkout</h1>
         
         {cart.length === 0 ? (
-          <div className="bg-brand-dark p-6 rounded-lg text-center">
+          <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg text-center shadow-glow border border-white/10">
             <h2 className="text-xl font-bold mb-4">Your cart is empty</h2>
             <p className="text-gray-400 mb-6">Looks like you haven't added anything to your cart yet.</p>
             <Button 
-              className="bg-purple-500 hover:bg-purple-600"
+              className="bg-purple-600/70 hover:bg-purple-600 shadow-glow border border-white/10"
               onClick={() => navigate("/")}
             >
               Browse Products
@@ -81,7 +95,7 @@ const Checkout: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-6">
-              <div className="bg-brand-dark p-6 rounded-lg">
+              <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10">
                 <h2 className="text-xl font-bold mb-4">Contact Information</h2>
                 <div className="mb-4">
                   <Label htmlFor="checkout-email" className="block text-sm font-medium mb-1">Email</Label>
@@ -89,25 +103,25 @@ const Checkout: React.FC = () => {
                     type="email" 
                     id="checkout-email" 
                     placeholder="your@email.com" 
-                    className="w-full bg-brand-gray border border-zinc-700 rounded-md px-4 py-2" 
+                    className="w-full bg-purple-950/40 backdrop-blur-md border border-white/10 rounded-md px-4 py-2 focus:border-purple-500/50 shadow-glow" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
               
-              <div className="bg-brand-dark p-6 rounded-lg">
+              <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10">
                 <h2 className="text-xl font-bold mb-4">Payment Method</h2>
                 <RadioGroup 
                   value={paymentMethod} 
                   onValueChange={handlePaymentMethodChange}
                   className="space-y-3"
                 >
-                  <div className="flex items-center p-3 border border-zinc-700 rounded-md">
+                  <div className="flex items-center p-3 border border-white/10 rounded-md bg-purple-950/40 backdrop-blur-md">
                     <RadioGroupItem value="card" id="payment-card" className="mr-3" />
                     <Label htmlFor="payment-card" className="flex items-center">
                       <svg 
-                        className="mr-2 w-5 h-5" 
+                        className="mr-2 w-5 h-5 text-purple-300" 
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="0 0 24 24" 
                         fill="none" 
@@ -122,11 +136,11 @@ const Checkout: React.FC = () => {
                     </Label>
                   </div>
                   
-                  <div className="flex items-center p-3 border border-zinc-700 rounded-md">
+                  <div className="flex items-center p-3 border border-white/10 rounded-md bg-purple-950/40 backdrop-blur-md">
                     <RadioGroupItem value="paypal" id="payment-paypal" className="mr-3" />
                     <Label htmlFor="payment-paypal" className="flex items-center">
                       <svg 
-                        className="mr-2 w-5 h-5" 
+                        className="mr-2 w-5 h-5 text-purple-300" 
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="0 0 24 24" 
                         fill="none" 
@@ -142,11 +156,11 @@ const Checkout: React.FC = () => {
                     </Label>
                   </div>
                   
-                  <div className="flex items-center p-3 border border-zinc-700 rounded-md">
+                  <div className="flex items-center p-3 border border-white/10 rounded-md bg-purple-950/40 backdrop-blur-md">
                     <RadioGroupItem value="upi" id="payment-upi" className="mr-3" />
                     <Label htmlFor="payment-upi" className="flex items-center">
                       <svg 
-                        className="mr-2 w-5 h-5" 
+                        className="mr-2 w-5 h-5 text-purple-300" 
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="0 0 24 24" 
                         fill="none" 
@@ -178,7 +192,7 @@ const Checkout: React.FC = () => {
               </div>
               
               <Button 
-                className="w-full bg-purple-500 hover:bg-purple-700 text-white py-3 rounded-md font-medium" 
+                className="w-full bg-purple-600/70 hover:bg-purple-600 text-white py-3 rounded-md font-medium shadow-glow border border-white/10" 
                 onClick={handlePayment}
                 disabled={isProcessing}
               >
@@ -195,24 +209,24 @@ const Checkout: React.FC = () => {
             </div>
             
             <div>
-              <div className="bg-brand-dark p-6 rounded-lg sticky top-20">
+              <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10 sticky top-20">
                 <h2 className="text-xl font-bold mb-4">Order Summary</h2>
                 
-                <div className="border-b border-zinc-700 pb-4 mb-4">
+                <div className="border-b border-white/10 pb-4 mb-4">
                   {cart.map((item) => (
-                    <div key={item.product.id} className="flex mb-4">
+                    <div key={item.product.id} className="flex mb-4 p-2 rounded-lg bg-purple-950/40 backdrop-blur-sm border border-white/5">
                       <img 
                         src={item.product.imageUrl} 
                         alt={item.product.name} 
-                        className="w-20 h-20 rounded object-cover"
+                        className="w-20 h-20 rounded object-cover border border-white/10"
                       />
                       <div className="ml-3">
                         <h3 className="font-medium">{item.product.name}</h3>
                         <div className="text-gray-400 text-sm">Qty: {item.quantity}</div>
-                        <div className="font-medium mt-1">${((item.product.price * item.quantity) / 100).toFixed(2)}</div>
+                        <div className="font-medium mt-1 text-white">${((item.product.price * item.quantity) / 100).toFixed(2)}</div>
                       </div>
                       <button 
-                        className="ml-auto text-gray-400 hover:text-white"
+                        className="ml-auto text-gray-400 hover:text-white hover:bg-red-500/20 p-1 rounded-full transition-colors"
                         onClick={() => handleRemoveItem(item.product.id)}
                       >
                         <X size={16} />
@@ -221,10 +235,10 @@ const Checkout: React.FC = () => {
                   ))}
                 </div>
                 
-                <div className="space-y-2 text-sm mb-4">
+                <div className="space-y-2 text-sm mb-4 p-3 rounded-lg bg-purple-950/40 backdrop-blur-sm border border-white/5">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>${formattedTotal}</span>
+                    <span className="font-medium">${formattedTotal}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Taxes</span>
@@ -232,9 +246,9 @@ const Checkout: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="flex justify-between font-bold text-lg">
+                <div className="flex justify-between font-bold text-lg p-3 rounded-lg bg-purple-950/40 backdrop-blur-sm border border-white/5 mt-4">
                   <span>Total</span>
-                  <span>${formattedTotal}</span>
+                  <span className="text-white">${formattedTotal}</span>
                 </div>
                 
                 <div className="mt-4 text-xs text-gray-400">

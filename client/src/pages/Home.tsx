@@ -118,8 +118,22 @@ const Home: React.FC = () => {
       </section>
 
       {/* LUTs Section */}
-      <section className="py-16 bg-brand-gray" id="luts-section">
-        <div className="container mx-auto px-4">
+      <section className="py-16 relative overflow-hidden" id="luts-section">
+        {/* Black hole video background */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+          <video 
+            className="absolute w-full h-full object-cover opacity-30" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src="/blackhole.webm" type="video/webm" />
+          </video>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold">LUTs Collection</h2>
             <Link to="/products" className="text-brand-purple hover:underline flex items-center">
