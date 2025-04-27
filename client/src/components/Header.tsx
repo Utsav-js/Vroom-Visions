@@ -58,22 +58,27 @@ const Header: React.FC = () => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <button className="text-white hover:text-brand-purple bg-transparent border-0 p-0">
-            <Instagram size={18} />
+          <a 
+            href="https://www.instagram.com/vroom_visionsx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-purple-400 hover:text-white flex items-center rounded-full bg-purple-900/30 p-1.5 border border-white/10 shadow-glow transition-colors"
+          >
+            <Instagram size={16} />
+          </a>
+          <button className="text-gray-400 hover:text-white bg-transparent border-0 p-0 transition-colors">
+            <Facebook size={16} />
           </button>
-          <button className="text-white hover:text-brand-purple bg-transparent border-0 p-0">
-            <Facebook size={18} />
-          </button>
-          <button className="text-white hover:text-brand-purple bg-transparent border-0 p-0">
-            <Twitter size={18} />
+          <button className="text-gray-400 hover:text-white bg-transparent border-0 p-0 transition-colors">
+            <Twitter size={16} />
           </button>
           <div 
             onClick={() => navigate("/checkout")} 
-            className="text-white hover:text-brand-purple relative cursor-pointer"
+            className="text-white hover:text-purple-300 relative cursor-pointer flex items-center rounded-full bg-purple-900/30 p-1.5 border border-white/10 shadow-glow transition-colors"
           >
-            <ShoppingCart size={18} />
+            <ShoppingCart size={16} />
             {itemCount > 0 && (
-              <Badge variant="destructive" className="absolute -top-2 -right-2 bg-purple-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs p-0">
+              <Badge variant="destructive" className="absolute -top-2 -right-2 bg-purple-600 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs p-0 border border-white/20 shadow-glow">
                 {itemCount}
               </Badge>
             )}
