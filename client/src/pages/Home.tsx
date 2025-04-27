@@ -61,7 +61,7 @@ const Home: React.FC = () => {
             loop 
             playsInline
           >
-            <source src="https://static.videezy.com/system/resources/previews/000/044/665/original/200304_02_BlackHolePortal4k_24b.mp4" type="video/mp4" />
+            <source src="/public/videos/blackhole.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -119,10 +119,8 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold">LUTs Collection</h2>
-            <Link href="/products">
-              <a className="text-brand-purple hover:underline flex items-center">
-                Show all <ArrowRight className="ml-2 w-4 h-4" />
-              </a>
+            <Link to="/products" className="text-brand-purple hover:underline flex items-center">
+              Show all <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </div>
           
