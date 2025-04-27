@@ -94,12 +94,12 @@ const ProductDetail: React.FC = () => {
             </div>
           </div>
           
-          <div>
+          <div className="bg-purple-900/10 backdrop-blur-md p-6 rounded-lg border border-white/10 shadow-glow">
             <h1 className="text-2xl md:text-3xl font-bold mb-2">{product.name}</h1>
             {renderRating()}
             
-            <div className="flex items-center mb-4">
-              <span className="text-2xl font-bold mr-2">${(product.price / 100).toFixed(2)}</span>
+            <div className="flex items-center mb-4 bg-purple-950/40 backdrop-blur-md p-3 rounded-lg border border-white/5">
+              <span className="text-2xl font-bold mr-2 text-white">${(product.price / 100).toFixed(2)}</span>
               {product.originalPrice && (
                 <span className="text-gray-400 line-through">${(product.originalPrice / 100).toFixed(2)}</span>
               )}
@@ -107,7 +107,7 @@ const ProductDetail: React.FC = () => {
             
             <div className="flex space-x-2 mb-6">
               {product.compatibility?.map((comp) => (
-                <Badge key={comp} variant="outline" className="bg-zinc-700 text-xs px-2 py-0.5 rounded">
+                <Badge key={comp} variant="outline" className="bg-purple-900/40 backdrop-blur-sm border border-purple-500/30 text-xs px-2 py-0.5 rounded-full">
                   {comp}
                 </Badge>
               ))}
@@ -122,19 +122,19 @@ const ProductDetail: React.FC = () => {
               ))}
             </ul>
             
-            <div className="flex space-x-3">
+            <div className="flex space-x-3 mt-6 p-4 rounded-lg bg-purple-950/40 backdrop-blur-md border border-white/5">
               <Button 
-                className="bg-brand-purple hover:bg-purple-700 text-white px-6 py-3 rounded-md font-medium"
+                className="bg-purple-600/70 hover:bg-purple-600 text-white px-6 py-3 rounded-md font-medium shadow-glow border border-white/10"
                 onClick={handleBuyNow}
               >
                 Buy Now
               </Button>
               <Button 
                 variant="outline"
-                className="bg-transparent hover:bg-zinc-800 border border-zinc-700 text-white px-6 py-3 rounded-md font-medium"
+                className="bg-transparent hover:bg-purple-900/40 border border-white/20 text-white px-6 py-3 rounded-md font-medium shadow-glow"
                 onClick={handleAddToCart}
               >
-                Add to Cart
+                <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
               </Button>
             </div>
           </div>

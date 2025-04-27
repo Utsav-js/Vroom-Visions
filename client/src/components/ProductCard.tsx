@@ -29,21 +29,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className="w-full h-full object-cover"
           />
           {product.discount && (
-            <div className="absolute top-2 left-2 bg-purple-600/90 text-white font-semibold text-xs py-1 px-2 rounded-full">-{product.discount}%</div>
+            <div className="absolute top-2 left-2 bg-purple-600/80 backdrop-blur-md text-white font-semibold text-xs py-1 px-2 rounded-full border border-white/10">-{product.discount}%</div>
           )}
         </div>
-        <div className="p-4">
+        <div className="p-4 bg-purple-900/10 backdrop-blur-md">
           <h3 className="text-lg font-bold mb-1">{product.name}</h3>
           <div className="flex flex-wrap gap-2 mb-3">
             {product.compatibility?.map((comp) => (
-              <Badge key={comp} variant="outline" className="bg-purple-900/40 border border-purple-500/30 text-xs px-2 py-0.5 rounded-full">
+              <Badge key={comp} variant="outline" className="bg-purple-900/40 backdrop-blur-sm border border-purple-500/30 text-xs px-2 py-0.5 rounded-full">
                 {comp}
               </Badge>
             ))}
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-4 p-2 rounded-lg bg-purple-950/40 backdrop-blur-md border border-white/5">
             <div className="flex items-center">
-              <span className="text-lg font-bold">${(product.price / 100).toFixed(2)}</span>
+              <span className="text-lg font-bold text-white">${(product.price / 100).toFixed(2)}</span>
               {product.originalPrice && (
                 <span className="text-gray-400 line-through text-sm ml-2">
                   ${(product.originalPrice / 100).toFixed(2)}
@@ -52,10 +52,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
             <Button 
               variant="outline" 
-              className="bg-purple-600/20 hover:bg-purple-600/40 p-2 rounded-full border border-white/20 transition-all duration-300"
+              className="bg-purple-600/40 hover:bg-purple-600/60 p-2 rounded-full border border-white/20 transition-all duration-300 shadow-glow"
               onClick={handleAddToCart}
             >
-              <ShoppingCart size={16} />
+              <ShoppingCart size={16} className="text-white" />
             </Button>
           </div>
         </div>
