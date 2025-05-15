@@ -142,7 +142,7 @@ const Home: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {displayProducts.map(product => (
+            {(displayProducts as any[]).map((product: { slug: string; id: number; name: string; description: string; price: number; originalPrice: number | null; discount: number | null; features: string[] | null; category: string; compatibility: string[] | null; imageUrl: string; }) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

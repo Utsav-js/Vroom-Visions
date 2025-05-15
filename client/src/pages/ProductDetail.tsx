@@ -45,12 +45,12 @@ const ProductDetail: React.FC = () => {
   }
 
   const handleBuyNow = () => {
-    addToCart(product);
+addToCart(product as Product);
     navigate("/checkout");
   };
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart(product as Product);
   };
 
   const renderRating = () => {
@@ -84,40 +84,40 @@ const ProductDetail: React.FC = () => {
           <div>
             <div className="relative rounded-lg overflow-hidden">
               <img 
-                src={product.imageUrl} 
-                alt={product.name} 
+                src={(product as Product)?.imageUrl || ''}
+                alt={(product as Product).name}
                 className="w-full h-auto"
               />
-              {product.discount && (
-                <div className="discount-badge">-{product.discount}%</div>
+              {(product as Product).discount && (
+                <div className="discount-badge">-{(product as Product).discount}%</div>
               )}
             </div>
           </div>
           
           <div className="bg-purple-900/10 backdrop-blur-md p-6 rounded-lg border border-white/10 shadow-glow">
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">{product.name}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-2">{(product as Product).name}</h1>
             {renderRating()}
             
             <div className="flex items-center mb-4 bg-purple-950/40 backdrop-blur-md p-3 rounded-lg border border-white/5">
-              <span className="text-2xl font-bold mr-2 text-white">${(product.price / 100).toFixed(2)}</span>
-              {product.originalPrice && (
-                <span className="text-gray-400 line-through">${(product.originalPrice / 100).toFixed(2)}</span>
+              <span className="text-2xl font-bold mr-2 text-white">${((product as Product).price / 100).toFixed(2)}</span>
+              {(product as Product).originalPrice && (
+                <span className="text-gray-400 line-through">${(((product as Product).originalPrice ?? 0) / 100).toFixed(2)}</span>
               )}
             </div>
             
             <div className="flex space-x-2 mb-6">
-              {product.compatibility?.map((comp) => (
+              {(product as Product).compatibility?.map((comp) => (
                 <Badge key={comp} variant="outline" className="bg-purple-900/40 backdrop-blur-sm border border-purple-500/30 text-xs px-2 py-0.5 rounded-full">
                   {comp}
                 </Badge>
               ))}
             </div>
             
-            <p className="text-gray-300 mb-6">{product.description}</p>
+            <p className="text-gray-300 mb-6">{(product as Product).description}</p>
             
             <h3 className="text-lg font-bold mb-2">Key Features</h3>
             <ul className="list-disc text-gray-300 pl-5 mb-6 space-y-1">
-              {product.features?.map((feature, index) => (
+              {(product as Product).features?.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </ul>
