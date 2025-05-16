@@ -3,7 +3,7 @@ run = "cross-env NODE_ENV=development tsx server/index.ts"
 
 [env]
 PORT = "5000"
-hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
+hidden = [".config", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
 channel = "stable-24_05"
