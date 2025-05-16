@@ -8,6 +8,7 @@ import Newsletter from "@/components/Newsletter";
 import { useCart } from "@/contexts/CartContext";
 import products from "@/data/products";
 import { Product } from "@shared/schema";
+import VideoPlayer from "@/components/ui/video";
 
 const ProductDetail: React.FC = () => {
   const [matched, params] = useRoute("/products/:slug");
