@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { ArrowLeft, X, Check } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/contexts/CartContext";
 
@@ -14,41 +12,10 @@ const Checkout: React.FC = () => {
   const { cart, removeFromCart, getTotalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("card");
-  const [saveInfo, setSaveInfo] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-
-  const handlePaymentMethodChange = (value: string) => {
-    setPaymentMethod(value);
-  };
 
   const handleRemoveItem = (productId: number) => {
     removeFromCart(productId);
-  };
-
-  const handlePayment = async () => {
-    if (!email) {
-      toast({
-        title: "Missing information",
-        description: "Please enter your email address",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsProcessing(true);
-    
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      toast({
-        title: "Payment successful",
-        description: "Your order has been processed successfully",
-        variant: "default",
-      });
-      clearCart();
-      navigate("/");
-    }, 1500);
   };
 
   const handleRazorpayPayment = async () => {
@@ -184,91 +151,9 @@ const Checkout: React.FC = () => {
                     />
                   </div>
                 </div>
-                
-                <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10">
-                  <h2 className="text-xl font-bold mb-4">Payment Method</h2>
-                  <RadioGroup 
-                    value={paymentMethod} 
-                    onValueChange={handlePaymentMethodChange}
-                    className="space-y-3"
-                  >
-                    <div className="flex items-center p-3 border border-white/10 rounded-md bg-purple-950/40 backdrop-blur-md">
-                      <RadioGroupItem value="card" id="payment-card" className="mr-3" />
-                      <Label htmlFor="payment-card" className="flex items-center">
-                        <svg 
-                          className="mr-2 w-5 h-5 text-purple-300" 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        >
-                          <rect width="20" height="14" x="2" y="5" rx="2" />
-                          <line x1="2" x2="22" y1="10" y2="10" />
-                        </svg> Card
-                      </Label>
-                    </div>
-                    
-                    <div className="flex items-center p-3 border border-white/10 rounded-md bg-purple-950/40 backdrop-blur-md">
-                      <RadioGroupItem value="paypal" id="payment-paypal" className="mr-3" />
-                      <Label htmlFor="payment-paypal" className="flex items-center">
-                        <svg 
-                          className="mr-2 w-5 h-5 text-purple-300" 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        >
-                          <path d="M7 11c.33-.44.67-.9 1-1.33 1.17-1.5 2.33-3 3.67-4.17C13.22 4.05 14.56 3 16 3c1.66 0 3 1.34 3 3 0 .34-.04.67-.12 1h-2.3c.12-.33.2-.67.2-1 0-.55-.45-1-1-1s-1 .45-1 1v1c-1.21 0-2.18.46-3 1.11-1.03.81-1.75 1.8-2.44 2.77-.15.21-.3.42-.44.65"/>
-                          <path d="M17.49 9.6c.47.47.87 1.18.91 1.91.04.78-.34 1.53-.82 2.25-1.57 2.37-10.58 5.74-10.58 5.74-3.5 0-4-7 1-7 1.31 0 4.59 1.03 4.59 1.03"/>
-                          <path d="M14 8c-1.87 0-3.86 1.42-4.73 3.05"/>
-                        </svg> PayPal
-                      </Label>
-                    </div>
-                    
-                    <div className="flex items-center p-3 border border-white/10 rounded-md bg-purple-950/40 backdrop-blur-md">
-                      <RadioGroupItem value="upi" id="payment-upi" className="mr-3" />
-                      <Label htmlFor="payment-upi" className="flex items-center">
-                        <svg 
-                          className="mr-2 w-5 h-5 text-purple-300" 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        >
-                          <rect width="16" height="20" x="4" y="2" rx="2" />
-                          <line x1="10" x2="14" y1="18" y2="18" />
-                        </svg> UPI
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                  
-                  <div className="mt-4">
-                    <div className="flex items-center">
-                      <Checkbox 
-                        id="save-info" 
-                        checked={saveInfo}
-                        onCheckedChange={(checked) => setSaveInfo(checked as boolean)}
-                        className="mr-2"
-                      />
-                      <Label htmlFor="save-info" className="text-sm text-gray-300">
-                        Securely save my information for 1-click checkout
-                      </Label>
-                    </div>
-                  </div>
-                </div>
-                
                 <Button 
                   className="w-full bg-purple-600/70 hover:bg-purple-600 text-white py-3 rounded-md font-medium shadow-glow border border-white/10" 
-                  onClick={paymentMethod === "card" ? handleRazorpayPayment : handlePayment}
+                  onClick={handleRazorpayPayment}
                   disabled={isProcessing}
                 >
                   {isProcessing ? (
@@ -279,7 +164,7 @@ const Checkout: React.FC = () => {
                       </svg>
                       Processing...
                     </div>
-                  ) : "Pay"}
+                  ) : "Buy"}
                 </Button>
               </div>
               
