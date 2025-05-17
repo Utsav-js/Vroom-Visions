@@ -24,7 +24,24 @@ const ProductDetail: React.FC = () => {
   });
   
   // Fallback to local data if API fails
-  const product = apiProduct || products.find(p => p.slug === params?.slug);
+  let product: Product | undefined = undefined;
+  if (apiProduct && typeof apiProduct === 'object' && 'slug' in apiProduct) {
+    product = apiProduct as Product;
+  } else {
+    product = products.find((p: Product) => p.slug === params?.slug);
+  }
+  // Always use the uploaded image for the first four products
+  if (product) {
+    if (product.slug === "color-grading-luts") {
+      product = { ...product, imageUrl: "/Screenshot 2025-03-25 161159.png" };
+    } else if (product.slug === "color-grading-luts-volume-2") {
+      product = { ...product, imageUrl: "/Screenshot 2025-03-26 185115.png" };
+    } else if (product.slug === "sci-fi-luts") {
+      product = { ...product, imageUrl: "/Screenshot 2025-03-26 191217.png" };
+    } else if (product.slug === "vintage-car-luts") {
+      product = { ...product, imageUrl: "/Screenshot 2025-03-26 202926.png" };
+    }
+  }
   
   if (!product) {
     return (

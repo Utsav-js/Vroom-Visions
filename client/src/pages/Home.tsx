@@ -29,7 +29,13 @@ const Home: React.FC = () => {
   });
 
   // Use local data if API fails or is loading
-  const displayProducts = apiProducts || products;
+  const displayProducts = products.map((p: any, idx: number) => {
+    if (idx === 0) return { ...p, imageUrl: "/Screenshot 2025-03-25 161159.png" };
+    if (idx === 1) return { ...p, imageUrl: "/Screenshot 2025-03-26 185115.png" };
+    if (idx === 2) return { ...p, imageUrl: "/Screenshot 2025-03-26 191217.png" };
+    if (idx === 3) return { ...p, imageUrl: "/Screenshot 2025-03-26 202926.png" };
+    return p;
+  });
 
   const handlePrevTestimonial = () => {
     setCurrentTestimonial(prev => 
@@ -119,20 +125,6 @@ const Home: React.FC = () => {
 
       {/* LUTs Section */}
       <section className="py-16 relative overflow-hidden" id="luts-section">
-        {/* Black hole video background */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
-          <video 
-            className="absolute w-full h-full object-cover opacity-30" 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-          >
-            <source src="/blackhole.webm" type="video/webm" />
-          </video>
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-        </div>
-        
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold">LUTs Collection</h2>
@@ -140,10 +132,9 @@ const Home: React.FC = () => {
               Show all <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {(displayProducts as any[]).map((product: { slug: string; id: number; name: string; description: string; price: number; originalPrice: number | null; discount: number | null; features: string[] | null; category: string; compatibility: string[] | null; imageUrl: string; }) => (
-              <ProductCard key={product.id} product={product} />
+            {(displayProducts as any[]).map((product: { slug: string; id: number; name: string; description: string; price: number; originalPrice: number | null; discount: number | null; features: string[] | null; category: string; compatibility: string[] | null; imageUrl: string; }, idx: number) => (
+              <ProductCard key={product.id} product={{...product, imageUrl: idx === 0 ? "/Screenshot 2025-03-25 161159.png" : product.imageUrl}} />
             ))}
           </div>
         </div>

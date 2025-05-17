@@ -21,7 +21,7 @@ export const products: Product[] = [
     ],
     category: "luts",
     compatibility: ["AE", "PR", "FCPX"],
-    imageUrl: lutImage1
+    imageUrl: "/Screenshot 2025-03-25 161159.png"
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ export const products: Product[] = [
     ],
     category: "luts",
     compatibility: ["AE", "PR", "FCPX"],
-    imageUrl: lutImage2
+    imageUrl: "/Screenshot 2025-03-26 185115.png"
   },
   {
     id: 3,
@@ -57,7 +57,7 @@ export const products: Product[] = [
     ],
     category: "luts",
     compatibility: ["AE", "PR", "FCPX"],
-    imageUrl: lutImage1
+    imageUrl: "/Screenshot 2025-03-26 191217.png"
   },
   {
     id: 4,
@@ -75,7 +75,7 @@ export const products: Product[] = [
     ],
     category: "luts",
     compatibility: ["AE", "PR", "FCPX"],
-    imageUrl: lutImage2
+    imageUrl: "/Screenshot 2025-03-26 202926.png"
   }
 ];
 
