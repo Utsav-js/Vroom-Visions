@@ -2,6 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertReviewSchema, insertSubscriberSchema } from "@shared/schema";
+import { createRazorpayOrder } from "./razorpay";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes
@@ -56,10 +57,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(201).json({ message: "Subscribed successfully" });
     } catch (error) {
       console.error("Error creating subscriber:", error);
-      if (error.message?.includes("unique")) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "message" in error &&
+        typeof (error as { message: unknown }).message === "string" &&
+        ((error as { message: string }).message.includes("unique"))
+      ) {
         return res.status(400).json({ message: "Email already subscribed" });
       }
       return res.status(400).json({ message: "Invalid subscriber data" });
+    }
+  });
+
+  app.post("/api/razorpay/order", async (req: Request, res: Response) => {
+    try {
+      const { amount, currency, receipt, email } = req.body;
+      if (!amount || !currency || !receipt || !email) {
+        return res.status(400).json({ message: "Missing required order details" });
+      }
+      const order = await createRazorpayOrder(amount, currency, receipt);
+      // In a real application, you would save the order details to your database here
+      return res.status(201).json({ id: order.id, amount: order.amount, currency: order.currency });
+    } catch (error) {
+      console.error("Error creating Razorpay order:", error);
+      return res.status(500).json({ message: "Failed to create Razorpay order" });
     }
   });
 

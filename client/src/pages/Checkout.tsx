@@ -12,7 +12,7 @@ const Checkout: React.FC = () => {
   const { cart, removeFromCart, getTotalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'cancelled' | 'failed'>('idle');
 
   const handleRemoveItem = (productId: number) => {
     removeFromCart(productId);
@@ -28,7 +28,7 @@ const Checkout: React.FC = () => {
       return;
     }
 
-    setIsProcessing(true);
+    setPaymentStatus('processing');
 
     try {
       // Create order on backend (should be a real API call)
@@ -53,7 +53,7 @@ const Checkout: React.FC = () => {
         description: "Product Purchase",
         order_id: orderData.id,
         handler: function (response: any) {
-          setIsProcessing(false);
+          setPaymentStatus('idle'); // Payment successful, reset status
           toast({
             title: "Payment successful",
             description: "Your order has been processed successfully",
@@ -72,9 +72,19 @@ const Checkout: React.FC = () => {
       };
       // @ts-ignore
       const rzp = new window.Razorpay(options);
+
+      rzp.on('modal.close', function() {
+        setPaymentStatus('cancelled'); // Payment cancelled
+        toast({
+          title: "Payment cancelled",
+          description: "You have closed the payment window.",
+          variant: "destructive",
+        });
+      });
+
       rzp.open();
     } catch (error: any) {
-      setIsProcessing(false);
+      setPaymentStatus('failed'); // Payment failed
       toast({
         title: "Payment failed",
         description: error.message || "Payment could not be processed",
@@ -85,6 +95,27 @@ const Checkout: React.FC = () => {
 
   const totalPrice = getTotalPrice();
   const formattedTotal = (totalPrice / 100).toFixed(2);
+
+  const getButtonText = () => {
+    switch (paymentStatus) {
+      case 'processing':
+        return (
+          <div className="flex items-center">
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Processing...
+          </div>
+        );
+      case 'cancelled':
+        return "Payment Cancelled";
+      case 'failed':
+        return "Payment Failed";
+      default:
+        return "Buy";
+    }
+  };
 
   return (
     <>
@@ -136,39 +167,8 @@ const Checkout: React.FC = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="md:col-span-2 space-y-6">
-                <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10">
-                  <h2 className="text-xl font-bold mb-4">Contact Information</h2>
-                  <div className="mb-4">
-                    <Label htmlFor="checkout-email" className="block text-sm font-medium mb-1">Email</Label>
-                    <Input 
-                      type="email" 
-                      id="checkout-email" 
-                      placeholder="your@email.com" 
-                      className="w-full bg-purple-950/40 backdrop-blur-md border border-white/10 rounded-md px-4 py-2 focus:border-purple-500/50 shadow-glow" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <Button 
-                  className="w-full bg-purple-600/70 hover:bg-purple-600 text-white py-3 rounded-md font-medium shadow-glow border border-white/10" 
-                  onClick={handleRazorpayPayment}
-                  disabled={isProcessing}
-                >
-                  {isProcessing ? (
-                    <div className="flex items-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Processing...
-                    </div>
-                  ) : "Buy"}
-                </Button>
-              </div>
-              
-              <div>
+              {/* Order Summary - now spans 2 columns on medium screens */}
+              <div className="md:col-span-2">
                 <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10 sticky top-20">
                   <h2 className="text-xl font-bold mb-4">Order Summary</h2>
                   
@@ -214,6 +214,30 @@ const Checkout: React.FC = () => {
                   <div className="mt-4 text-xs text-gray-400">
                     By confirming your payment, you allow AEJuice LLC to charge you for this payment and future payments in accordance with their terms.
                   </div>
+                </div>
+              </div>
+              {/* Contact Information - now spans 1 column on medium screens */}
+              <div className="md:col-span-1 space-y-6">
+                <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10">
+                  <h2 className="text-xl font-bold mb-4">Contact Information</h2>
+                  <div className="mb-4">
+                    <Label htmlFor="checkout-email" className="block text-sm font-medium mb-1">Email</Label>
+                    <Input 
+                      type="email" 
+                      id="checkout-email" 
+                      placeholder="your@email.com" 
+                      className="w-full bg-purple-950/40 backdrop-blur-md border border-white/10 rounded-md px-4 py-2 focus:border-purple-500/50 shadow-glow" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <Button 
+                    className="w-full bg-purple-600/70 hover:bg-purple-600 text-white py-3 rounded-md font-medium shadow-glow border border-white/10 mt-4" 
+                    onClick={handleRazorpayPayment}
+                    disabled={paymentStatus === 'processing'}
+                  >
+                    {getButtonText()}
+                  </Button>
                 </div>
               </div>
             </div>
