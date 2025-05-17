@@ -63,7 +63,7 @@ const ProductDetail: React.FC = () => {
   }
 
   const handleBuyNow = () => {
-addToCart(product as Product);
+    addToCart(product as Product);
     navigate("/checkout");
   };
 
@@ -88,80 +88,105 @@ addToCart(product as Product);
   };
 
   return (
-    <section className="py-16 bg-brand-gray">
-      <div className="container mx-auto px-4">
-        <div className="mb-4">
-          <Link href="/#luts-section">
-            <a className="text-gray-400 hover:text-white flex items-center">
-              <ArrowLeft className="mr-2 w-4 h-4" /> Back to products
-            </a>
-          </Link>
+    <>
+      {/* Main background wrapper - fixed position to cover entire viewport */}
+      <div className="fixed inset-0 z-[-1]">
+        {/* Video background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-black/40 z-[1]"></div> {/* Adjusted overlay */}
+          <video 
+            className="absolute top-0 left-0 min-w-full min-h-full object-cover opacity-80" // Adjusted opacity
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+          >
+            <source src="/public/videos/blackhole.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <div className="relative rounded-lg overflow-hidden">
-              <img 
-                src={(product as Product)?.imageUrl || ''}
-                alt={(product as Product).name}
-                className="w-full h-auto"
-              />
-              {(product as Product).discount && (
-                <div className="discount-badge">-{(product as Product).discount}%</div>
-              )}
+        {/* Stars overlays - three layers for parallax effect */}
+        <div className="absolute inset-0 z-[2] stars stars-large opacity-70"></div>
+        <div className="absolute inset-0 z-[2] stars opacity-60"></div>
+        <div className="absolute inset-0 z-[2] stars stars-small opacity-60"></div>
+      </div>
+      
+      <section className="relative py-16 bg-brand-gray">
+        <div className="container mx-auto px-4">
+          <div className="mb-4">
+            <Link href="/#luts-section">
+              <a className="text-gray-400 hover:text-white flex items-center">
+                <ArrowLeft className="mr-2 w-4 h-4" /> Back to products
+              </a>
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div>
+              <div className="relative rounded-lg overflow-hidden">
+                <img 
+                  src={(product as Product)?.imageUrl || ''}
+                  alt={(product as Product).name}
+                  className="w-full h-auto"
+                />
+                {(product as Product).discount && (
+                  <div className="discount-badge">-{(product as Product).discount}%</div>
+                )}
+              </div>
+            </div>
+            
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold mb-2">{(product as Product).name}</h1>
+              {renderRating()}
+              
+              <div className="flex items-center mb-4 p-3 rounded-lg">
+                <span className="text-2xl font-bold mr-2 text-white">${((product as Product).price / 100).toFixed(2)}</span>
+                {(product as Product).originalPrice && (
+                  <span className="text-gray-400 line-through">${(((product as Product).originalPrice ?? 0) / 100).toFixed(2)}</span>
+                )}
+              </div>
+              
+              <div className="flex space-x-2 mb-6">
+                {(product as Product).compatibility?.map((comp) => (
+                  <Badge key={comp} variant="outline" className="bg-purple-900/10 backdrop-blur-sm border border-purple-500/30 text-xs px-2 py-0.5 rounded-full">
+                    {comp}
+                  </Badge>
+                ))}
+              </div>
+              
+              <p className="text-gray-300 mb-6">{(product as Product).description}</p>
+              
+              <h3 className="text-lg font-bold mb-2">Key Features</h3>
+              <ul className="list-disc text-gray-300 pl-5 mb-6 space-y-1">
+                {(product as Product).features?.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
+              </ul>
+              
+              <div className="flex space-x-3 mt-6 p-4 rounded-lg">
+                <Button 
+                  className="bg-purple-600/70 hover:bg-purple-600 text-white px-6 py-3 rounded-md font-medium shadow-glow border border-white/10"
+                  onClick={handleBuyNow}
+                >
+                  Buy Now
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="bg-transparent hover:bg-purple-900/40 border border-white/20 text-white px-6 py-3 rounded-md font-medium shadow-glow"
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                </Button>
+              </div>
             </div>
           </div>
           
-          <div className="bg-purple-900/10 backdrop-blur-md p-6 rounded-lg border border-white/10 shadow-glow">
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">{(product as Product).name}</h1>
-            {renderRating()}
-            
-            <div className="flex items-center mb-4 bg-purple-950/40 backdrop-blur-md p-3 rounded-lg border border-white/5">
-              <span className="text-2xl font-bold mr-2 text-white">${((product as Product).price / 100).toFixed(2)}</span>
-              {(product as Product).originalPrice && (
-                <span className="text-gray-400 line-through">${(((product as Product).originalPrice ?? 0) / 100).toFixed(2)}</span>
-              )}
-            </div>
-            
-            <div className="flex space-x-2 mb-6">
-              {(product as Product).compatibility?.map((comp) => (
-                <Badge key={comp} variant="outline" className="bg-purple-900/40 backdrop-blur-sm border border-purple-500/30 text-xs px-2 py-0.5 rounded-full">
-                  {comp}
-                </Badge>
-              ))}
-            </div>
-            
-            <p className="text-gray-300 mb-6">{(product as Product).description}</p>
-            
-            <h3 className="text-lg font-bold mb-2">Key Features</h3>
-            <ul className="list-disc text-gray-300 pl-5 mb-6 space-y-1">
-              {(product as Product).features?.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
-            
-            <div className="flex space-x-3 mt-6 p-4 rounded-lg bg-purple-950/40 backdrop-blur-md border border-white/5">
-              <Button 
-                className="bg-purple-600/70 hover:bg-purple-600 text-white px-6 py-3 rounded-md font-medium shadow-glow border border-white/10"
-                onClick={handleBuyNow}
-              >
-                Buy Now
-              </Button>
-              <Button 
-                variant="outline"
-                className="bg-transparent hover:bg-purple-900/40 border border-white/20 text-white px-6 py-3 rounded-md font-medium shadow-glow"
-                onClick={handleAddToCart}
-              >
-                <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
-              </Button>
-            </div>
-          </div>
+          {/* Newsletter Alternative */}
+          <Newsletter variant="alternative" className="mt-16" />
         </div>
-        
-        {/* Newsletter Alternative */}
-        <Newsletter variant="alternative" className="mt-16" />
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

@@ -60,14 +60,13 @@ const Newsletter: React.FC<NewsletterProps> = ({
 
   if (variant === "alternative") {
     return (
-      <div className={`max-w-4xl mx-auto p-6 bg-brand-dark rounded-lg ${className}`}>
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
+      <div className={`bg-brand-dark rounded-lg ${className}`}>
+        <div className="flex flex-col md:flex-row justify-between items-center p-0">
+          <div>
             <h3 className="text-xl font-bold">Stay updated with the latest</h3>
             <p className="text-gray-400">Subscribe to our newsletter for exclusive offers and car editing tips</p>
           </div>
-          
-          <form onSubmit={handleSubscribe} className="w-full md:w-auto flex">
+          <form onSubmit={handleSubscribe} className="w-full md:w-auto flex mt-2 md:mt-0">
             <Input
               type="email"
               placeholder="Your email address"
@@ -89,15 +88,14 @@ const Newsletter: React.FC<NewsletterProps> = ({
   }
 
   return (
-    <section className={`py-10 bg-brand-gray border-t border-zinc-800 ${className}`}>
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
+    <section className={`bg-brand-gray border-t border-zinc-800 ${className}`}>
+      <div className="container px-0">
+        <div className="flex flex-col md:flex-row justify-between items-center p-0">
+          <div>
             <h3 className="text-xl font-bold">Stay Updated</h3>
             <p className="text-gray-400">Get the latest updates, tutorials and offers</p>
           </div>
-          
-          <form onSubmit={handleSubscribe} className="w-full md:w-auto flex">
+          <form onSubmit={handleSubscribe} className="w-full md:w-auto flex mt-2 md:mt-0">
             <Input
               type="email"
               placeholder="Your email address"
