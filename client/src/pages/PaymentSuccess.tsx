@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 const PaymentSuccess: React.FC = () => {
   const [location] = useLocation();
@@ -38,7 +39,12 @@ const PaymentSuccess: React.FC = () => {
         <div className="absolute inset-0 z-[2] stars stars-small opacity-60"></div>
       </div>
       
-      <section className="relative py-16 flex items-center justify-center min-h-screen">
+      <motion.section 
+        className="relative py-16 flex items-center justify-center min-h-screen"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="container mx-auto px-4 relative z-10 text-center">
           <div className="bg-purple-900/20 backdrop-blur-md p-8 rounded-lg shadow-glow border border-white/10 max-w-md mx-auto">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
@@ -51,15 +57,25 @@ const PaymentSuccess: React.FC = () => {
                 A confirmation email has been sent to <span className="font-semibold text-white">{email}</span>.
               </p>
             )}
+            <p className="text-gray-300 mb-6">
+              Thank you for your purchase! You can download your guide below:
+            </p>
+            <a 
+              href="/private_assets/Instagram Export Guide.zip" 
+              download 
+              className="text-purple-500 hover:underline"
+            >
+              Download Instagram Export Guide
+            </a>
             <Button 
-              className="bg-purple-600/70 hover:bg-purple-600 text-white py-3 rounded-md font-medium shadow-glow border border-white/10"
+              className="bg-purple-600/70 hover:bg-purple-600 text-white py-3 rounded-md font-medium shadow-glow border border-white/10 mt-6"
               onClick={() => window.location.href = "/"}
             >
               Continue Shopping
             </Button>
           </div>
         </div>
-      </section>
+      </motion.section>
     </>
   );
 };

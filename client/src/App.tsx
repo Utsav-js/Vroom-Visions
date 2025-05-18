@@ -11,8 +11,17 @@ import Checkout from "@/pages/Checkout";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
 
 function Router() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <div className="min-h-screen flex flex-col fade-in">
       <Header />

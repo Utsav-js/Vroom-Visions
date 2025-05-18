@@ -62,26 +62,7 @@ const Newsletter: React.FC<NewsletterProps> = ({
     return (
       <div className={`bg-brand-dark rounded-lg ${className}`}>
         <div className="flex flex-col md:flex-row justify-between items-center p-0">
-          <div>
-            <h3 className="text-xl font-bold">Stay updated with the latest</h3>
-            <p className="text-gray-400">Subscribe to our newsletter for exclusive offers and car editing tips</p>
-          </div>
-          <form onSubmit={handleSubscribe} className="w-full md:w-auto flex mt-2 md:mt-0">
-            <Input
-              type="email"
-              placeholder="Your email address"
-              className="bg-zinc-800 border border-zinc-700 rounded-l-md"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button 
-              type="submit" 
-              className="bg-purple-500 hover:bg-purple-600 text-white rounded-r-md font-medium"
-              disabled={mutation.isPending}
-            >
-              {mutation.isPending ? "Subscribing..." : "Subscribe"}
-            </Button>
-          </form>
+          {/* Removed newsletter form */}
         </div>
       </div>
     );
@@ -91,26 +72,8 @@ const Newsletter: React.FC<NewsletterProps> = ({
     <section className={`bg-brand-gray border-t border-zinc-800 ${className}`}>
       <div className="container px-0">
         <div className="flex flex-col md:flex-row justify-between items-center p-0">
-          <div>
-            <h3 className="text-xl font-bold">Stay Updated</h3>
-            <p className="text-gray-400">Get the latest updates, tutorials and offers</p>
-          </div>
-          <form onSubmit={handleSubscribe} className="w-full md:w-auto flex mt-2 md:mt-0">
-            <Input
-              type="email"
-              placeholder="Your email address"
-              className="bg-brand-dark border border-zinc-700 rounded-l-md"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button 
-              type="submit" 
-              className="bg-purple-500 hover:bg-purple-600 text-white rounded-r-md font-medium"
-              disabled={mutation.isPending}
-            >
-              {mutation.isPending ? "Subscribing..." : "Subscribe"}
-            </Button>
-          </form>
+          {/* Removed newsletter heading and description */}
+          {/* Removed newsletter form */}
         </div>
       </div>
     </section>

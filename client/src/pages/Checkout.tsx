@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/contexts/CartContext";
+import { motion } from "framer-motion";
 
 const Checkout: React.FC = () => {
   const [, navigate] = useLocation();
@@ -142,7 +143,12 @@ const Checkout: React.FC = () => {
         <div className="absolute inset-0 z-[2] stars stars-small opacity-60"></div>
       </div>
       
-      <section className="relative py-16">
+      <motion.section 
+        className="relative py-16"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="container mx-auto px-4 relative z-10">
           <div className="mb-6">
             <Link href="/">
@@ -243,7 +249,7 @@ const Checkout: React.FC = () => {
             </div>
           )}
         </div>
-      </section>
+      </motion.section>
     </>
   );
 };

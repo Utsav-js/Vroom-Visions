@@ -49,7 +49,15 @@ const Header: React.FC = () => {
                 key={item.label}
                 variant="ghost"
                 className="text-white hover:bg-purple-500/20 px-3 py-1 rounded-full text-sm transition-all duration-300"
-                onClick={() => navigate(item.path)}
+                onClick={() => {
+                  if (item.path.startsWith('/#')) {
+                    // Use standard anchor link behavior for scrolling
+                    window.location.href = item.path;
+                  } else {
+                    // Use wouter navigate for other routes
+                    navigate(item.path);
+                  }
+                }}
               >
                 {item.label}
               </Button>
@@ -97,7 +105,15 @@ const Header: React.FC = () => {
                 key={item.label}
                 variant="ghost"
                 className="text-white hover:bg-purple-500/20 px-2 py-1 rounded-full text-sm transition-all duration-300"
-                onClick={() => navigate(item.path)}
+                onClick={() => {
+                  if (item.path.startsWith('/#')) {
+                    // Use standard anchor link behavior for scrolling
+                    window.location.href = item.path;
+                  } else {
+                    // Use wouter navigate for other routes
+                    navigate(item.path);
+                  }
+                }}
               >
                 {item.label}
               </Button>

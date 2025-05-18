@@ -3,6 +3,8 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertReviewSchema, insertSubscriberSchema } from "@shared/schema";
 import { createRazorpayOrder } from "./razorpay";
+import path from "path";
+import fs from "fs";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes
@@ -76,7 +78,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!amount || !currency || !receipt || !email) {
         return res.status(400).json({ message: "Missing required order details" });
       }
-      const order = await createRazorpayOrder(amount, currency, receipt);
+
+      // Assuming amount is in USD cents from the client
+      // Convert USD cents to INR paise (Example: 1 USD = 83 INR)
+      const usdAmount = amount / 100; // Convert cents to dollars
+      const inrAmount = usdAmount * 83; // Convert dollars to rupees
+      const inrPaise = Math.round(inrAmount * 100); // Convert rupees to paise
+
+      // Ensure currency is set to INR for Razorpay
+      if (currency !== "INR") {
+           console.warn(`Unexpected currency received: ${currency}. Proceeding with INR.`);
+      }
+
+      const order = await createRazorpayOrder(inrPaise, "INR", receipt);
       // In a real application, you would save the order details to your database here
       return res.status(201).json({ id: order.id, amount: order.amount, currency: order.currency });
     } catch (error) {
@@ -85,7 +99,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  const httpServer = createServer(app);
+  app.get('/download/instagram-guide', (req: Request, res: Response) => {
+    // TODO: Implement logic here to verify if the user is authorized to download the file
+    // For example, check if the user has a session indicating a successful purchase.
 
-  return httpServer;
+    const filePath = path.join(__dirname, '../private_assets/Instagram_Export_Guide.zip');
+
+    // Ensure the file exists before attempting to send it
+    if (fs.existsSync(filePath)) {
+      res.download(filePath, 'Instagram Export Guide.zip', (err) => {
+        if (err) {
+          console.error('Error sending file:', err);
+          // Handle error, maybe file not found or permission issue
+          res.status(500).send('Could not download the file.');
+        } else {
+          // Log the successful download
+          console.log('Instagram Export Guide downloaded successfully.');
+          // TODO: Add more sophisticated tracking here, e.g., save to database
+        }
+      });
+    } else {
+      console.error('File not found:', filePath);
+      res.status(404).send('File not found.');
+    }
+  });
+
+  // Return the HTTP server instance
+  return createServer(app);
 }

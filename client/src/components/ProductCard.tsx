@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 import type { Product } from "@shared/schema";
+import { motion } from "framer-motion";
 
 interface ProductCardProps {
   product: Product;
@@ -21,7 +22,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <Link to={`/products/${product.slug}`}>
-      <div className="block bg-purple-900/20 backdrop-blur-lg border border-white/10 rounded-lg overflow-hidden shadow-glow group transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:bg-purple-900/30">
+      <motion.div 
+        className="block bg-purple-900/20 backdrop-blur-lg border border-white/10 rounded-lg overflow-hidden shadow-glow group transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:bg-purple-900/30"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="relative h-48">
           <img 
             src={product.imageUrl} 
@@ -59,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </Button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 };

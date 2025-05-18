@@ -9,6 +9,7 @@ import { useCart } from "@/contexts/CartContext";
 import products from "@/data/products";
 import { Product } from "@shared/schema";
 import VideoPlayer from "@/components/ui/video";
+import { motion } from "framer-motion";
 
 const ProductDetail: React.FC = () => {
   const [matched, params] = useRoute("/products/:slug");
@@ -112,7 +113,12 @@ const ProductDetail: React.FC = () => {
         <div className="absolute inset-0 z-[2] stars stars-small opacity-60"></div>
       </div>
       
-      <section className="relative py-16 bg-brand-gray">
+      <motion.section 
+        className="relative py-16"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="container mx-auto px-4">
           <div className="mb-4">
             <Link href="/#luts-section">
@@ -136,11 +142,11 @@ const ProductDetail: React.FC = () => {
               </div>
             </div>
             
-            <div>
+            <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10 sticky top-20">
               <h1 className="text-2xl md:text-3xl font-bold mb-2">{(product as Product).name}</h1>
               {renderRating()}
               
-              <div className="flex items-center mb-4 p-3 rounded-lg">
+              <div className="flex items-center mb-4">
                 <span className="text-2xl font-bold mr-2 text-white">${((product as Product).price / 100).toFixed(2)}</span>
                 {(product as Product).originalPrice && (
                   <span className="text-gray-400 line-through">${(((product as Product).originalPrice ?? 0) / 100).toFixed(2)}</span>
@@ -164,9 +170,9 @@ const ProductDetail: React.FC = () => {
                 ))}
               </ul>
               
-              <div className="flex space-x-3 mt-6 p-4 rounded-lg">
+              <div className="flex space-x-3 mt-6">
                 <Button 
-                  className="bg-purple-600/70 hover:bg-purple-600 text-white px-6 py-3 rounded-md font-medium shadow-glow border border-white/10"
+                  className="bg-transparent hover:bg-purple-900/40 border border-white/20 text-white px-6 py-3 rounded-md font-medium shadow-glow"
                   onClick={handleBuyNow}
                 >
                   Buy Now
@@ -185,7 +191,7 @@ const ProductDetail: React.FC = () => {
           {/* Newsletter Alternative */}
           <Newsletter variant="alternative" className="mt-16" />
         </div>
-      </section>
+      </motion.section>
     </>
   );
 };

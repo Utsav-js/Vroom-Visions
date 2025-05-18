@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import ProductCard from "@/components/ProductCard";
 import FeatureCard from "@/components/FeatureCard";
-import TestimonialCard from "@/components/TestimonialCard";
 import ReviewForm from "@/components/ReviewForm";
 import Newsletter from "@/components/Newsletter";
 import { mainFeatures, whyChooseUs } from "@/data/features";
-import { testimonials } from "@/data/testimonials";
 import products from "@/data/products";
+import { motion } from "framer-motion";
 
 // Import car images for before/after slider
 import beforeImage from "@assets/LUTS.jpg";
@@ -30,28 +29,8 @@ const Home: React.FC = () => {
 
   // Use local data if API fails or is loading
   const displayProducts = products.map((p: any, idx: number) => {
-    if (idx === 0) return { ...p, imageUrl: "/Screenshot 2025-03-25 161159.png" };
-    if (idx === 1) return { ...p, imageUrl: "/Screenshot 2025-03-26 185115.png" };
-    if (idx === 2) return { ...p, imageUrl: "/Screenshot 2025-03-26 191217.png" };
-    if (idx === 3) return { ...p, imageUrl: "/Screenshot 2025-03-26 202926.png" };
     return p;
   });
-
-  const handlePrevTestimonial = () => {
-    setCurrentTestimonial(prev => 
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
-  };
-
-  const handleNextTestimonial = () => {
-    setCurrentTestimonial(prev => 
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  const handleGoToTestimonial = (index: number) => {
-    setCurrentTestimonial(index);
-  };
 
   return (
     <>
@@ -79,7 +58,12 @@ const Home: React.FC = () => {
       </div>
       
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden">
+      <motion.section 
+        className="relative pt-24 pb-20 overflow-hidden"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
         {/* Animated glow effect */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[100px] z-[4] hero-glow"></div>
         
@@ -105,10 +89,15 @@ const Home: React.FC = () => {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Features Section */}
-      <section className="py-16 bg-brand-dark" id="features">
+      <motion.section 
+        className="py-16 bg-brand-dark" id="features"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {mainFeatures.map((feature, index) => (
@@ -121,10 +110,15 @@ const Home: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* LUTs Section */}
-      <section className="py-16 relative overflow-hidden" id="luts-section">
+      <motion.section 
+        className="py-16 relative overflow-hidden" id="luts-section"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+      >
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold">LUTs Collection</h2>
@@ -134,14 +128,19 @@ const Home: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {(displayProducts as any[]).map((product: { slug: string; id: number; name: string; description: string; price: number; originalPrice: number | null; discount: number | null; features: string[] | null; category: string; compatibility: string[] | null; imageUrl: string; }, idx: number) => (
-              <ProductCard key={product.id} product={{...product, imageUrl: idx === 0 ? "/Screenshot 2025-03-25 161159.png" : product.imageUrl}} />
+              <ProductCard key={product.id} product={{...product, imageUrl: product.imageUrl}} />
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-brand-dark">
+      <motion.section 
+        className="py-16 bg-brand-dark"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+      >
         <div className="container mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Why Choose Us</h2>
           
@@ -157,66 +156,29 @@ const Home: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-16 bg-brand-gray" id="testimonials">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">What Our Clients Say</h2>
-          
-          <div className="max-w-4xl mx-auto relative">
-            {/* Testimonial Cards Container */}
-            <div className="overflow-hidden">
-              <TestimonialCard 
-                name={testimonials[currentTestimonial].name}
-                role={testimonials[currentTestimonial].role}
-                image={testimonials[currentTestimonial].image}
-                rating={testimonials[currentTestimonial].rating}
-                comment={testimonials[currentTestimonial].comment}
-              />
-            </div>
-            
-            {/* Navigation Arrows */}
-            <Button
-              variant="default"
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -ml-4 md:-ml-6 bg-brand-purple w-10 h-10 rounded-full flex items-center justify-center p-0"
-              onClick={handlePrevTestimonial}
-            >
-              <ChevronLeft className="text-white" />
-            </Button>
-            <Button
-              variant="default"
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 -mr-4 md:-mr-6 bg-brand-purple w-10 h-10 rounded-full flex items-center justify-center p-0"
-              onClick={handleNextTestimonial}
-            >
-              <ChevronRight className="text-white" />
-            </Button>
-            
-            {/* Indicators */}
-            <div className="flex justify-center mt-6 space-x-2">
-              {testimonials.map((_, index) => (
-                <Button
-                  key={index}
-                  variant="ghost"
-                  className={`w-2 h-2 rounded-full p-0 ${index === currentTestimonial ? 'bg-brand-purple' : 'bg-gray-500'}`}
-                  onClick={() => handleGoToTestimonial(index)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      </motion.section>
 
       {/* Review Form */}
-      <section className="py-16 bg-brand-dark">
+      <motion.section 
+        className="py-16 bg-brand-dark"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.0 }}
+      >
         <div className="container mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Share Your Experience</h2>
           <ReviewForm />
         </div>
-      </section>
+      </motion.section>
 
       {/* Newsletter */}
-      <Newsletter />
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+      >
+        <Newsletter />
+      </motion.section>
     </>
   );
 };

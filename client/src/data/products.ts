@@ -7,21 +7,21 @@ import lutImage2 from "@assets/LUT.jpg";
 export const products: Product[] = [
   {
     id: 1,
-    name: "Color Grading LUTs",
-    slug: "color-grading-luts",
-    description: "Professional color grading LUTs for car photography. Transform your images with just one click.",
-    price: 5900,
-    originalPrice: 11900,
-    discount: 50,
+    name: "Instagram Export Guide",
+    slug: "instagram-export-guide",
+    description: "Best export settings for Instagram to avoid compression and quality loss.",
+    price: 900, // $9.00 in cents
+    originalPrice: 1500, // $15.00
+    discount: 40,
     features: [
-      "20+ unique LUTs for different lighting conditions",
-      "Compatible with Adobe Premiere Pro, After Effects, and Final Cut Pro X",
-      "Installation guide included",
-      "Free updates for life"
+      "After Effects render settings for best quality",
+      "Media Encoder export settings to reduce compression",
+      "Topaz AI upscaling & noise reduction tips",
+      "Step-by-step installation guide included"
     ],
-    category: "luts",
-    compatibility: ["AE", "PR", "FCPX"],
-    imageUrl: "/Screenshot 2025-03-25 161159.png"
+    category: "guide", // Changed category
+    compatibility: ["AE", "ME", "TVA"], // Updated compatibility
+    imageUrl: "/Screenshot 2025-03-25 737159.png"
   },
   {
     id: 2,
